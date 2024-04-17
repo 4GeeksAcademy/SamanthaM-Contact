@@ -5,17 +5,16 @@ import { useParams } from "react-router-dom";
 const ContactDetails = () => {
     const [contact, setContact] = useState(null);
     const { id } = useParams();
-    const url = `https://playground.4geeks.com/apis/fake/contact/${id}`;
-
+    const url = "https://playground.4geeks.com/contact/agendas/sam/contacts/${id}" 
     useEffect(() => {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                console.log("Contacts:", data);
+                console.log("Contact:", data);
                 setContact(data);
             })
             .catch((error) => {
-                console.error("//:", error);
+                console.error("", error);
             });
     }, [url]);
 
@@ -27,9 +26,9 @@ const ContactDetails = () => {
         <div className="container">
             <h1>Contact Details</h1>
             <div className="contact-details">
-                <p><strong>Name</strong> {contact.full_name}</p>
+                <p><strong>Name:</strong> {contact.full_name}</p>
                 <p><strong>Email:</strong> {contact.email}</p>
-                <p><strong>Phone:</strong> {contact.phone}</p>
+                <p><strong>Phone Number:</strong> {contact.phone}</p>
                 <p><strong>Address:</strong> {contact.address}</p>
             </div>
         </div>

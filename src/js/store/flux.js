@@ -1,45 +1,58 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			contacts: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			fetchAllContacts: () => {
+				fetch ("https://playground.4geeks.com/contact/agendas/sam/contacts")
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+                    setStore({contacts: data.contacts})
+				})
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
 		}
-	};
-};
+
+		,saveContact: async (newContact) => {
+			const store = getStore();
+			const newContacts = [...store.contacts, newContact]
+			
+			try {
+				await fetch("https://playground.4geeks.com/contact/agendas/sam/contacts", {
+					method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(newContact)
+					})
+				} catch(e) {
+					console.log('Failed to add new contact')
+				}
+
+                setStore({ contacts: newContacts });
+			},
+			fetchDeleteOneContact: id => {
+                let options = {
+                    method: "DELETE",
+                    body: JSON.stringify(id),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+				fetch("https://playground.4geeks.com/contact/agendas/sam/contacts" + id, options)
+				.then(res => {
+                    if (!res.ok) throw Error(res.statusText);
+                    return res;
+                })
+                .then((data)=>{
+                    console.log(data);
+                    getActions().fetchAllContacts()
+                })
+                .then(res => console.log("Successfully deleted", res))
+            },
+        }
+}
+
 
 export default getState;

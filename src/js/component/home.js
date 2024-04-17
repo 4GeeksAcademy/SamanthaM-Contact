@@ -7,13 +7,13 @@ export const Home = () => {
     const { store, actions } = useContext(Context);
     const [users, setUsers] = useState([]);
 
-    const urlContacts = "";
+    const urlUsersRegistered = "";
 
     useEffect(() => {
-        Contacts();
+        usersRegistered();
     }, []);
 
-    const Contacts = () => {
+    const usersRegistered = () => {
         fetch(urlUsersRegistered, {
             method: "GET",
             headers: {
@@ -23,7 +23,7 @@ export const Home = () => {
         .then((response) => response.json())
         .then((data) => {
             console.log("", data);
-            setUsers(data); //
+            setUsers(data); 
         })
         .catch((err) => {
             console.error(" :", err);
@@ -45,9 +45,11 @@ export const Home = () => {
                     </div>
                 ))}
             </div>
-            <Link to="/Contacts">
+            <Link to="/UserRegistration">
 				<button className="btn btn-primary">Register</button>
 			</Link>
         </div>
     );
 };
+
+
