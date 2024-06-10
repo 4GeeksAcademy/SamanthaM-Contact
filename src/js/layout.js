@@ -35,8 +35,8 @@ const Layout = () => {
                 <ScrollToTop>
                     <Routes>
                         <Route path="/" element={<Home />} /> 
-                        <Route path="/" element={<ListContacts />}/>
-                        <Route path="/addContact" element={<AddContacts />}/>
+                        <Route path="/ListContacts" element={<ListContacts />}/>
+                        <Route path="/AddContact" element={<AddContacts />}/>
                         <Route path="/demo" element={<Demo />} />
                         <Route path="/single/:theid" element={<Single />} />
                         <Route path="*" element={<h1>Not found!</h1>} />
