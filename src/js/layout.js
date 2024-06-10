@@ -7,38 +7,44 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
+import AddContacts from "./views/AddContacts";
+import ListContacts from "./views/ListContacts";
 import injectContext from "./store/appContext";
+
+
 
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import {User} from "./views/user";
-import {ContactDetails} from "./views/contactDetails";
+
 
 
 
 //create your first component
 const Layout = () => {
-	//the basename is used when your project is published in a subdirectory and not in the root of the domain
-	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
-	const basename = process.env.BASENAME || "";
+    //the basename is used when your project is published in a subdirectory and not in the root of the domain
+    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
+    const basename = process.env.BASENAME || "";
 
-	return (
-		<div>
-		<BrowserRouter basename={basename}>
-			<ScrollToTop>
-				<Routes>
-				<Route path="/" element={<home/>}/>
-				<Route path="/" element={<Demo />}/>
-				<Route path="/" element={<user />}/>
-				<Route path="/" element={<ContactDetails />}/>
-				<Route path="/" element={<single />}/>
-				<Route path="*" element={<h1>Not found!</h1>} />
-				</Routes>
-			</ScrollToTop>
-		</BrowserRouter>
-	</div>
-);
+
+
+
+    return (
+        <div>
+            <BrowserRouter basename={basename}>
+                <ScrollToTop>
+                    <Routes>
+                        <Route path="/" element={<Home />} /> 
+                        <Route path="/" element={<ListContacts />}/>
+                        <Route path="/addContact" element={<AddContacts />}/>
+                        <Route path="/demo" element={<Demo />} />
+                        <Route path="/single/:theid" element={<Single />} />
+                        <Route path="*" element={<h1>Not found!</h1>} />
+                    </Routes>
+                </ScrollToTop>
+            </BrowserRouter>
+        </div>
+    );
 };
 
 

@@ -1,26 +1,28 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			contacts: []
-		},
-		actions: {
-			fetchAllContacts: () => {
-				fetch ("https://playground.4geeks.com/contact/agendas/sam/contacts")
-				.then(response => response.json())
-				.then(data => {
-					console.log(data);
-                    setStore({contacts: data.contacts})
-				})
-			},
-		}
+    return {
+        store: {
+             contacts: []
+        },
+        actions: {
 
-		,saveContact: async (newContact) => {
-			const store = getStore();
-			const newContacts = [...store.contacts, newContact]
-			
-			try {
-				await fetch("https://playground.4geeks.com/contact/agendas/sam/contacts", {
-					method: 'POST',
+           fetchAllContacts: () => {
+                fetch ("https://playground.4geeks.com/contact/agendas/samantha/contacts")
+				.then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    setStore({contacts: data.contacts})
+                })
+           },
+
+
+
+			saveContact: async (newContact) => {
+				const store = getStore();
+				const newContacts = [...store.contacts, newContact]
+				
+				try {
+					await fetch('https://playground.4geeks.com/contact/agendas/samantha/contacts' , {
+						method: 'POST',
 						headers: {
 							"Content-Type": "application/json",
 						},
@@ -32,7 +34,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 setStore({ contacts: newContacts });
 			},
-			fetchDeleteOneContact: id => {
+
+
+            fetchDeleteOneContact: id => {
                 let options = {
                     method: "DELETE",
                     body: JSON.stringify(id),
@@ -40,8 +44,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                         "Content-Type": "application/json"
                     }
                 }
-				fetch("https://playground.4geeks.com/contact/agendas/sam/contacts" + id, options)
-				.then(res => {
+				fetch('https://playground.4geeks.com/contact/agendas/samantha/contacts' + id, options)
+                .then(res => {
                     if (!res.ok) throw Error(res.statusText);
                     return res;
                 })
@@ -53,6 +57,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
         }
 }
-
+}
 
 export default getState;
