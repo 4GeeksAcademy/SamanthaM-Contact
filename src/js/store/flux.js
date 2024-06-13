@@ -39,21 +39,20 @@ const getState = ({ getStore, getActions, setStore }) => {
             fetchDeleteOneContact: id => {
                 let options = {
                     method: "DELETE",
-                    body: JSON.stringify(id),
                     headers: {
                         "Content-Type": "application/json"
                     }
                 }
-				fetch('https://playground.4geeks.com/contact/agendas/samantha/contacts' + id, options)
-                .then(res => {
-                    if (!res.ok) throw Error(res.statusText);
-                    return res;
-                })
-                .then((data)=>{
-                    console.log(data);
-                    getActions().fetchAllContacts()
-                })
-                .then(res => console.log("Successfully deleted", res))
+                fetch('https://playground.4geeks.com/contact/agendas/samantha/contacts/' + id, options)
+                    .then(res => {
+                        if (!res.ok) throw Error(res.statusText);
+                        return res;
+                    })
+                    .then((data) => {
+                        console.log("Successfully deleted", data);
+                        getActions().fetchAllContacts();
+                    })
+                    .catch(error => console.error("Error deleting contact:", error));
             },
         }
 }
